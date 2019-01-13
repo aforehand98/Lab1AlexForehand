@@ -1,0 +1,81 @@
+function main() return integer
+	vars:
+		char array fname[][]
+		char array lname[][]
+		char array phoneNum[][]
+		char array dateOfBirth[][]
+
+		employeeData = openFile("employee_data.txt")
+
+function DisplayMenu() return void
+	DISPLAY:
+		1.) Find user information
+		2.) Add user
+		3.) Edit user
+		4.) Display all records
+		5.) Exit
+
+function SortUsers() return void
+	vars:
+		char array fnameTemp[]
+		char array lnameTemp[]
+		char array phoneTemp[]
+		char array birthTemp[]
+		boolean sorted set to false
+	
+	loop number of records (counter: pass) or until sorted
+		sorted =  true
+		
+		loop number of records - pass# - 1 times (counter: i)
+			if lname[i] > lname[i + 1] then
+				sorted = false
+				
+				lnameTemp[i] = lname[i]
+				lname[i] = lname[i + 1]
+				lname[i + 1] = lnameTemp[i]
+
+				fnameTemp[i] = fname[i]
+				fname[i] = fname[i + 1]
+				fname[i + 1] = fnameTemp[i]
+
+				phoneTemp[i] = phoneNum[i]
+				phoneNum[i] = phoneNum[i + 1]
+				phoneNum[i + 1] = phoneTemp[i]
+
+				dobTemp[i] = dateOfBirth[i]
+				dateOfBirth[i] = dateOfBirth[i + 1]
+				dateOfBirth[i + 1] = dobTemp[i]
+				
+				pass++
+
+function MenuChoice(fname[][], lname[][], phoneNum[][], dateOfBirth[][]) return void
+	vars:
+		integer menuChoice
+	
+	BEGIN do loop
+		PROMPT user for menuChoice
+
+		if menuChoice <= 0 or menuChoice > 5 then throw error
+	while menuChoice <= 0 or menuChoice > 5
+	END do loop
+
+	BEGIN switch:
+		CASE 1:
+			call FindUser(fname, lname)
+		CASE 2:
+			call AddUser(fname, lname, phoneNum, dateOfBirth)
+			call SortUsers()
+		CASE 3:
+			call EditUser()
+		CASE 4:
+			call PrintUsers()
+		CASE 5:
+			exit program
+
+function FindUser(fname[][], lname[][]) return void
+
+function AddUser(fname[][], lname[][], phoneNum[][], dateOfBirth[][]) return void
+
+function EditUser(fname[][], lname[][], phoneNum[][], dateOfBirth[][]) return void
+
+function PrintUsers(fname[][], lname[][], phoneNum[][], dateOfBirth[][]) return void
