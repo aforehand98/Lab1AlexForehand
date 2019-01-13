@@ -15,7 +15,7 @@ function DisplayMenu() return void
 		4.) Display all records
 		5.) Exit
 
-function SortUsers() return void
+function SortUsers(fname[][], lname[][], phoneNum[][], dateOfBirth[][]) return void
 	vars:
 		char array fnameTemp[]
 		char array lnameTemp[]
