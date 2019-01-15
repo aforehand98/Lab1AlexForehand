@@ -5,7 +5,18 @@ function main() return integer
 		char array phoneNum[][]
 		char array dateOfBirth[][]
 
-		employeeData = openFile("employee_data.txt")
+function ReadFile(fname[][], lname[][], phoneNum[][], dateOfBirth[][])
+	vars:
+		short count
+		loop while employee_data.txt is not eof (counter: count)
+			
+			READ employee_data.txt into
+			> fname[count]
+			> lname[count]
+			> phoneNum[count]
+			> dateOfBirth[count]
+
+			count++
 
 function DisplayMenu() return void
 	DISPLAY:
@@ -70,6 +81,8 @@ function MenuChoice(fname[][], lname[][], phoneNum[][], dateOfBirth[][]) return 
 		CASE 4:
 			call PrintUsers()
 		CASE 5:
+			exit program
+		DEFAULT:
 			exit program
 
 function FindUser(fname[][], lname[][]) return void
