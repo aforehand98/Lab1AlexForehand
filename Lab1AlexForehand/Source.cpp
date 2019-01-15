@@ -46,6 +46,7 @@ void MenuChoice(char fname[MAX_EMPLOYEES][NAME_LENGTH], char lname[MAX_EMPLOYEES
 void EditUser(char fname[MAX_EMPLOYEES][NAME_LENGTH], char lname[MAX_EMPLOYEES][NAME_LENGTH], char phoneNum[MAX_EMPLOYEES][13], char dateOfBirth[MAX_EMPLOYEES][11]); // Allows user to edit a specific user
 void PrintUsers(char fname[MAX_EMPLOYEES][NAME_LENGTH], char lname[MAX_EMPLOYEES][NAME_LENGTH],
     char phoneNum[MAX_EMPLOYEES][13], char dateOfBirth[MAX_EMPLOYEES][11], int numEmployees);
+//void FindUser();
 
 int main() {
     char fname[MAX_EMPLOYEES][NAME_LENGTH] = { '\0' }; // array of first names
@@ -63,11 +64,17 @@ int main() {
     } else {
         cout << "Failed to open file: " << data;
     }
+    for (int i = 0; i < numEmployees + 1; i++) { //test code
+        cout << lname[i] << '\n';
+    } cout << '\n';
     SortUsers(fname, lname, phoneNum, dateOfBirth, numEmployees, employeeOut);
-    DisplayMenu();
-
+    //DisplayMenu();
+    for (int i = 0; i < numEmployees + 1; i++) { //test code
+        cout << lname[i] << '\n';
+    }
     employeeIn.close();
     employeeOut.close();
+    
     cin.ignore(2);
     return 0;
 }
@@ -82,19 +89,21 @@ void DisplayMenu() {
 
 void ReadFile(char fname[MAX_EMPLOYEES][NAME_LENGTH], char lname[MAX_EMPLOYEES][NAME_LENGTH], char phoneNum[MAX_EMPLOYEES][13],
     char dateOfBirth[MAX_EMPLOYEES][11], short &numEmployees, ifstream &employeeIn) {
-
+    
     employeeIn >> fname[numEmployees] // priming read of `data`
         >> lname[numEmployees]        // saving data from `data` to 2D arrays
         >> phoneNum[numEmployees]
         >> dateOfBirth[numEmployees];
 
-    while (!employeeIn.eof() || numEmployees < MAX_EMPLOYEES) { // if there are more than 1 line in the file, continue reading into array until end of file
+    while (!employeeIn.eof() && numEmployees < MAX_EMPLOYEES) { // if there are more than 1 line in the file, continue reading into array until end of file
+        numEmployees++;
+
         employeeIn >> fname[numEmployees]
             >> lname[numEmployees]
             >> phoneNum[numEmployees]
             >> dateOfBirth[numEmployees];
 
-        numEmployees++;
+
     }
 }
 
@@ -112,7 +121,7 @@ void SortUsers(char fname[MAX_EMPLOYEES][NAME_LENGTH], char lname[MAX_EMPLOYEES]
         sorted = true;
 
         for (int i = 0; i < numEmployees - pass - 1; i++) {
-            if (_stricmp(lname[i], lname[i + 1]) < 0) {
+            if (_stricmp(lname[i], lname[i + 1]) > 0) {
                 sorted = false; // resetting to false since we did end up sorting this pass
 
                 strcpy(lnameTemp[i], lname[i]); // save lname to lnameTemp
@@ -130,10 +139,9 @@ void SortUsers(char fname[MAX_EMPLOYEES][NAME_LENGTH], char lname[MAX_EMPLOYEES]
                 strcpy(birthTemp[i], dateOfBirth[i]);
                 strcpy(dateOfBirth[i], dateOfBirth[i + 1]);
                 strcpy(dateOfBirth[i + 1], birthTemp[i]);
-
-                pass++; //incrementing pass counter
             }
         }
+        pass++; //incrementing pass counter
     }
 }
 
